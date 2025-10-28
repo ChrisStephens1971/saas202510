@@ -17,17 +17,31 @@ from .report_generator import (
     TrialBalanceAccount,
     TrialBalanceReport,
 )
+from .accuracy_validator import (
+    AccuracyReport,
+    AccuracyValidator,
+    BalanceVariance,
+    FundBalanceComparison,
+    MemberBalanceComparison,
+    VarianceSeverity,
+)
 
 __all__ = [
+    "AccuracyReport",
+    "AccuracyValidator",
     "AuditEntry",
     "AuditEventType",
     "AuditTrailGenerator",
+    "BalanceVariance",
     "ComplianceReportGenerator",
+    "FundBalanceComparison",
     "GeneralLedgerEntry",
     "GeneralLedgerReport",
     "ImmutabilityReport",
     "ImmutabilityValidator",
+    "MemberBalanceComparison",
     "ReportFormat",
     "TrialBalanceAccount",
     "TrialBalanceReport",
+    "VarianceSeverity",
 ]
