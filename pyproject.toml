@@ -1,0 +1,104 @@
+[project]
+name = "qa-testing-accounting"
+version = "0.1.0"
+description = "QA/Testing Infrastructure for Multi-Tenant HOA Accounting System"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "pytest>=8.0.0",
+    "pytest-cov>=4.1.0",
+    "pytest-xdist>=3.5.0",  # Parallel test execution
+    "hypothesis>=6.92.0",    # Property-based testing
+    "faker>=22.0.0",         # Realistic fake data generation
+    "pydantic>=2.5.0",       # Data validation and modeling
+    "psycopg[binary]>=3.1.0", # PostgreSQL adapter
+    "python-dotenv>=1.0.0",  # Environment variable management
+    "freezegun>=1.4.0",      # Time travel for tests
+]
+
+[project.optional-dependencies]
+dev = [
+    "black>=24.0.0",         # Code formatting
+    "ruff>=0.1.0",           # Linting
+    "mypy>=1.8.0",           # Type checking
+    "ipython>=8.20.0",       # Interactive shell
+]
+
+[build-system]
+requires = ["setuptools>=68.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py", "*_test.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = [
+    "-ra",                   # Show all test summary info
+    "--strict-markers",      # Strict marker usage
+    "--strict-config",       # Strict config
+    "--cov=src",            # Coverage for src directory
+    "--cov-report=term-missing", # Show missing lines in coverage
+    "--cov-report=html",    # Generate HTML coverage report
+    "--cov-branch",         # Branch coverage
+    "-n", "auto",           # Parallel execution (auto-detect CPU count)
+]
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "integration: marks tests as integration tests",
+    "property: marks property-based tests",
+]
+
+[tool.coverage.run]
+source = ["src"]
+omit = ["tests/*", "**/__pycache__/*"]
+
+[tool.coverage.report]
+precision = 2
+show_missing = true
+skip_covered = false
+
+[tool.black]
+line-length = 100
+target-version = ["py311"]
+include = '\.pyi?$'
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # pyflakes
+    "I",   # isort
+    "N",   # pep8-naming
+    "UP",  # pyupgrade
+    "B",   # flake8-bugbear
+]
+ignore = [
+    "E501",  # Line too long (handled by black)
+]
+
+[tool.ruff.isort]
+known-first-party = ["src"]
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_no_return = true
+strict_equality = true
+
+[[tool.mypy.overrides]]
+module = "tests.*"
+disallow_untyped_defs = false
+
+[tool.hypothesis]
+max_examples = 100
+deadline = 5000  # 5 seconds max per test case
