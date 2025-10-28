@@ -37,13 +37,26 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# Python (if using any planning scripts)
+# Python
 __pycache__/
 *.py[cod]
 *$py.class
 .Python
 venv/
 env/
+.venv/
+ENV/
+.pytest_cache/
+.hypothesis/
+.coverage
+htmlcov/
+*.cover
+.mypy_cache/
+.ruff_cache/
+.tox/
+*.egg-info/
+dist/
+build/
 
 # Secrets and Environment
 .env
