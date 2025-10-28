@@ -25,6 +25,14 @@ from .accuracy_validator import (
     MemberBalanceComparison,
     VarianceSeverity,
 )
+from .policy_engine import (
+    CompliancePolicy,
+    ComplianceReport as PolicyComplianceReport,
+    PolicyCategory,
+    PolicyEngine,
+    Severity,
+    Violation,
+)
 
 __all__ = [
     "AccuracyReport",
@@ -33,6 +41,7 @@ __all__ = [
     "AuditEventType",
     "AuditTrailGenerator",
     "BalanceVariance",
+    "CompliancePolicy",
     "ComplianceReportGenerator",
     "FundBalanceComparison",
     "GeneralLedgerEntry",
@@ -40,8 +49,13 @@ __all__ = [
     "ImmutabilityReport",
     "ImmutabilityValidator",
     "MemberBalanceComparison",
+    "PolicyCategory",
+    "PolicyComplianceReport",
+    "PolicyEngine",
     "ReportFormat",
+    "Severity",
     "TrialBalanceAccount",
     "TrialBalanceReport",
     "VarianceSeverity",
+    "Violation",
 ]
