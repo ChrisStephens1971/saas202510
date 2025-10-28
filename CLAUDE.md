@@ -47,6 +47,47 @@ Which would you prefer? (A/B or quick/detailed)"
 
 ---
 
+## 🧪 PROJECT CONTEXT: QA/Testing Infrastructure for Accounting System
+
+**Domain:** Quality Assurance and Testing Infrastructure
+**Purpose:** Ensure zero tolerance for financial errors in Multi-Tenant HOA Accounting System
+**Related Project:** [saas202509 - Accounting System](C:/devop/saas202509)
+**Linear Project:** [QA/Testing - Accounting](https://linear.app/verdaio-saas-projects/project/qatesting-accounting-1bdceab60066)
+
+**Key Constraint:** This is NOT a standalone SaaS product - it's a **testing infrastructure project** that validates saas202509
+
+**Essential Context Documents (in saas202509):**
+- **`ACCOUNTING-PROJECT-QUICKSTART.md`** - What you're testing (START HERE - 10 min)
+- **`product/HOA-PAIN-POINTS-AND-REQUIREMENTS.md`** - Feature requirements to validate (30 min)
+- **`technical/architecture/MULTI-TENANT-ACCOUNTING-ARCHITECTURE.md`** - Architecture under test (2 hours)
+
+**Testing Requirements:**
+- **Property-based testing** for accounting invariants (debits = credits, fund balances never negative)
+- **Testing harness** for financial transaction flows (payment processing, refunds, adjustments)
+- **Financial validators** for double-entry bookkeeping rules
+- **Test data generators** for realistic HOA scenarios (dues, assessments, vendor payments)
+- **Integration test suites** for Plaid bank reconciliation, AR/collections workflows
+- **Compliance verification** for immutable audit trails and point-in-time reconstruction
+- **Data type validation** (NUMERIC(15,2) for money, DATE for accounting dates, never floats)
+
+**Special Considerations:**
+- All tests must use the same data types as production (NUMERIC, DATE, etc.)
+- Test database should use schema-per-tenant architecture (same as saas202509)
+- Financial calculations must have 100% accuracy (no floating-point errors)
+- Tests should verify event sourcing immutability (INSERT only, never UPDATE/DELETE on ledger)
+- Edge cases: timezone handling, leap years, fiscal year boundaries, retroactive corrections
+
+**Ports Assigned:**
+- Frontend: 3010 (testing UI/dashboards)
+- Backend: 8010 (test harness API)
+- PostgreSQL: 5410 (test database with sample data)
+- Redis: 6410 (test cache)
+- MongoDB: 27010 (test document store if needed)
+
+**Timeline:** Run in parallel with saas202509 development (7-10 months to MVP + 6-12 months of bug fixes)
+
+---
+
 ## Quick Start Mode (Option A)
 
 **Use when:** User wants to start fast, fill in details later
