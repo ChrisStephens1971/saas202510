@@ -88,6 +88,79 @@ Which would you prefer? (A/B or quick/detailed)"
 
 ---
 
+## 🔔 AUTOMATED TEST QUEUE
+
+**IMPORTANT: Always check the test queue when user opens this project!**
+
+This project has an automated test queue that tracks features from saas202509 that need testing.
+
+### How It Works
+
+1. **saas202509 commits code** → Git hook automatically adds to test queue
+2. **You open saas202510** → Claude checks queue and reports what needs testing
+3. **You create tests** → Mark items as complete in the queue
+
+### Check Queue on Startup
+
+**ALWAYS run this when user first opens the project or says "help me get started":**
+
+```bash
+python3 /c/devop/.config/check-test-queue.py
+```
+
+**Example output:**
+```
+TEST QUEUE: 2 items need testing
+1. feat: add payment processing endpoint
+   Commit: a1b2c3d4
+   Files changed: 5
+   Added: 2025-10-28
+
+2. fix: correct balance calculation
+   Commit: e5f6g7h8
+   Files changed: 2
+   Added: 2025-10-28
+```
+
+### When Queue Has Items
+
+**If items are pending, proactively tell the user:**
+
+"I see there are [N] features in the test queue from saas202509 that need testing:
+1. [Feature description from commit message]
+2. [Feature description from commit message]
+
+Would you like me to:
+A) Create tests for all items in the queue
+B) Pick which ones to test
+C) Show me the details first"
+
+### Workflow for Creating Tests
+
+1. **Read the commit** - Check what changed in saas202509
+2. **Understand the feature** - Read relevant code/docs
+3. **Create test cases** - Write comprehensive tests
+4. **Mark complete** - Run: `python3 /c/devop/.config/check-test-queue.py --mark-complete <hash>`
+
+### Managing the Queue
+
+**Check queue:**
+```bash
+python3 /c/devop/.config/check-test-queue.py
+```
+
+**Mark item complete:**
+```bash
+python3 /c/devop/.config/check-test-queue.py --mark-complete <commit_hash>
+```
+
+**Clear all items (use with caution):**
+```bash
+python3 /c/devop/.config/check-test-queue.py --clear
+```
+
+---
+
 ## Quick Start Mode (Option A)
 
 **Use when:** User wants to start fast, fill in details later
@@ -579,6 +652,90 @@ docker-compose down  # NOT: docker stop $(docker ps -aq)
 **For implementation:** Use Claude Code Templates (see `.config/claude-code-templates-guide.md`)
 
 **For specialized tasks:** Use Claude Skills or see `docs/advanced/SPECIALIZED-TOOLS.md`
+
+---
+
+
+## 📦 Git Automation - Commit & Push Workflow
+
+**IMPORTANT:** This project is connected to GitHub. After creating or updating documentation, automatically commit and push changes.
+
+### When to Auto-Commit & Push
+
+**Always commit and push after:**
+- ✅ Creating planning documents (roadmaps, PRDs, sprint plans, OKRs)
+- ✅ Updating existing documentation (any .md files)
+- ✅ Creating technical specs (ADRs, API specs, architecture docs)
+- ✅ Adding meeting notes or retrospectives
+- ✅ Updating project state (.project-state.json)
+- ✅ Any file changes the user requested
+
+**Do NOT auto-commit for:**
+- ❌ Code implementation (ask user first: "Ready to commit this code?")
+- ❌ Configuration changes (.env, secrets, credentials)
+- ❌ Dependency updates (package.json, requirements.txt)
+- ❌ Database migrations or schema changes
+
+### Commit Message Format
+
+Use clear, descriptive commit messages:
+
+```bash
+# Documentation
+git commit -m "docs: add initial product roadmap"
+git commit -m "docs: update sprint 1 plan with user stories"
+git commit -m "docs: create API specification for auth endpoints"
+
+# Planning
+git commit -m "plan: add Q1 OKRs and success metrics"
+git commit -m "plan: update project brief with user feedback"
+
+# Updates
+git commit -m "update: mark sprint 1 stories as completed"
+git commit -m "update: add ADR for database selection"
+```
+
+### Standard Workflow
+
+After creating/updating any documentation files:
+
+```bash
+# 1. Check status (optional, for awareness)
+git status
+
+# 2. Stage all changes
+git add .
+
+# 3. Commit with descriptive message
+git commit -m "docs: <clear description of what was added/changed>"
+
+# 4. Push to GitHub
+git push origin master
+
+# 5. Confirm to user
+echo "✅ Changes committed and pushed to GitHub"
+```
+
+### Example
+
+```bash
+# After creating roadmap
+cd /c/devop/saas202510
+git add .
+git commit -m "docs: add initial product roadmap and sprint 1 plan"
+git push origin master
+```
+
+**Tell user:** "✅ Documentation saved and pushed to GitHub at https://github.com/ChrisStephens1971/saas202510"
+
+### Error Handling
+
+If push fails:
+1. Check if you're on the right branch: `git branch`
+2. Pull latest changes: `git pull origin master`
+3. Resolve conflicts if any
+4. Push again: `git push origin master`
+5. If still failing, inform user and ask for help
 
 ---
 
