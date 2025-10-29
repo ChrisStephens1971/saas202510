@@ -419,7 +419,9 @@ class TestMultiYearBudgets:
         total_2025 = budget_2025.get_total_budgeted(lines_2025)
 
         # Verify 10% increase
-        expected_increase = total_2024 * Decimal("0.10")
+        # Note: quantize expected_increase because summing quantized line amounts
+        # may not equal the quantized total increase due to rounding
+        expected_increase = (total_2024 * Decimal("0.10")).quantize(Decimal("0.01"))
         actual_increase = total_2025 - total_2024
         assert abs(actual_increase - expected_increase) < Decimal("0.01")
 
