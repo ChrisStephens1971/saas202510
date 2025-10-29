@@ -103,9 +103,9 @@ jobs:
 
     - name: Validate data type compliance
       run: |
-        python -m pytest tests/ -k "test_.*_use_decimal" -v
-        python -m pytest tests/ -k "test_.*_dates_use_date" -v
-        python -m pytest tests/ -k "test_.*_decimal_with_2_places" -v
+        python -m pytest tests/ -k "use_decimal" -v
+        python -m pytest tests/ -k "dates_use_date" -v
+        python -m pytest tests/ -k "decimal_with_2_places" -v
       continue-on-error: false
 
   compliance-tests:
