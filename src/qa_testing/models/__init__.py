@@ -10,6 +10,8 @@ from .reserve import *
 from .reporting import *
 from .collections import *
 from .matching import *
+from .violation import *
+from .board_packet import *
 
 __all__ = [
     # Base
@@ -66,4 +68,20 @@ __all__ = [
     "MatchStatistics",
     "RuleType",
     "MatchStatus",
+    # Violation
+    "Violation",
+    "ViolationPhoto",
+    "ViolationNotice",
+    "ViolationHearing",
+    "ViolationStatus",
+    "ViolationSeverity",
+    "ViolationNoticeType",
+    "NoticeDeliveryMethod",
+    "HearingOutcome",
+    # Board Packet
+    "BoardPacketTemplate",
+    "BoardPacket",
+    "PacketSection",
+    "BoardPacketStatus",
+    "SectionType",
 ]
