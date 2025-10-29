@@ -9,8 +9,6 @@ from uuid import uuid4
 
 import pytest
 
-from qa_testing.database import TestDatabase, create_test_schema, drop_test_schema, seed_test_data
-
 
 @pytest.fixture(scope="function")
 def tenant_id():
@@ -28,6 +26,9 @@ def test_schema(tenant_id):
     2. Yields the schema name
     3. Drops the schema after the test
     """
+    # Import database utilities only when needed
+    from qa_testing.database import create_test_schema, drop_test_schema
+
     # Skip if no PostgreSQL available
     if not os.getenv("TEST_DATABASE_URL") and not _postgres_available():
         pytest.skip("PostgreSQL not available for integration tests")
@@ -52,6 +53,9 @@ def test_data(tenant_id, test_schema):
     - members: List of Member instances
     - funds: List of Fund instances
     """
+    # Import database utilities only when needed
+    from qa_testing.database import seed_test_data
+
     return seed_test_data(
         tenant_id,
         num_properties=1,
@@ -62,12 +66,18 @@ def test_data(tenant_id, test_schema):
 @pytest.fixture(scope="function")
 def test_db():
     """Get test database connection."""
+    # Import database utilities only when needed
+    from qa_testing.database import TestDatabase
+
     return TestDatabase()
 
 
 def _postgres_available() -> bool:
     """Check if PostgreSQL is available."""
     try:
+        # Import database utilities only when needed
+        from qa_testing.database import TestDatabase
+
         test_db = TestDatabase()
         with test_db.connect() as conn:
             cursor = conn.cursor()
