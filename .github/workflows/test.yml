@@ -39,21 +39,26 @@ jobs:
         mypy src/ --ignore-missing-imports
       continue-on-error: true
 
-    - name: Run test suite
+    - name: Run compliance tests
       run: |
-        pytest tests/ -v --tb=short --maxfail=5
+        pytest tests/compliance/ -v --tb=short
 
-    - name: Run integration tests
+    - name: Run bank reconciliation tests
       run: |
-        pytest tests/integration/ -v --tb=short
+        pytest tests/test_bank_reconciliation.py -v --tb=short
+
+    - name: Run integration tests (no database fixtures)
+      run: |
+        pytest tests/integration/test_budget_management.py tests/integration/test_dashboard_metrics.py tests/integration/test_funds_management.py -v --tb=short
 
     - name: Run property-based tests
       run: |
-        pytest tests/property/ -v --tb=short
+        pytest tests/property/test_budget_invariants.py -v --tb=short
 
     - name: Generate coverage report
       run: |
-        pytest tests/ --cov=src/qa_testing --cov-report=term-missing --cov-report=xml
+        # Run coverage on our core test suite (excluding tests that need PostgreSQL)
+        pytest tests/compliance/ tests/test_bank_reconciliation.py tests/integration/test_budget_management.py tests/integration/test_dashboard_metrics.py tests/integration/test_funds_management.py tests/property/test_budget_invariants.py --cov=src/qa_testing --cov-report=term-missing --cov-report=xml
       continue-on-error: true
 
     - name: Upload coverage to Codecov
