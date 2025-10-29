@@ -19,6 +19,21 @@ from .reserve_generator import (
     ReserveStudyGenerator,
 )
 from .transaction_generator import LedgerEntryGenerator, TransactionGenerator
+from .report_generator import (
+    CustomReportGenerator,
+    ReportExecutionGenerator,
+)
+from .collections_generator import (
+    LateFeeRuleGenerator,
+    DelinquencyStatusGenerator,
+    CollectionNoticeGenerator,
+    CollectionActionGenerator,
+)
+from .matching_generator import (
+    AutoMatchRuleGenerator,
+    MatchResultGenerator,
+    MatchStatisticsGenerator,
+)
 
 __all__ = [
     "MemberGenerator",
@@ -38,4 +53,13 @@ __all__ = [
     "ReserveComponentGenerator",
     "ReserveScenarioGenerator",
     "ReserveProjectionGenerator",
+    "CustomReportGenerator",
+    "ReportExecutionGenerator",
+    "LateFeeRuleGenerator",
+    "DelinquencyStatusGenerator",
+    "CollectionNoticeGenerator",
+    "CollectionActionGenerator",
+    "AutoMatchRuleGenerator",
+    "MatchResultGenerator",
+    "MatchStatisticsGenerator",
 ]

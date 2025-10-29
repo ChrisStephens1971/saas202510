@@ -7,6 +7,9 @@ from .fund import *
 from .transaction import *
 from .budget import *
 from .reserve import *
+from .reporting import *
+from .collections import *
+from .matching import *
 
 __all__ = [
     # Base
@@ -41,4 +44,26 @@ __all__ = [
     "ReserveProjection",
     "ComponentCategory",
     "FundingStatus",
+    # Reporting
+    "CustomReport",
+    "ReportExecution",
+    "ReportType",
+    "ExecutionStatus",
+    # Collections
+    "LateFeeRule",
+    "DelinquencyStatus",
+    "CollectionNotice",
+    "CollectionAction",
+    "FeeType",
+    "CollectionStage",
+    "NoticeType",
+    "DeliveryMethod",
+    "ActionType",
+    "ActionStatus",
+    # Matching
+    "AutoMatchRule",
+    "MatchResult",
+    "MatchStatistics",
+    "RuleType",
+    "MatchStatus",
 ]
