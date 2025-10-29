@@ -7,6 +7,7 @@ from .ar_collections_generator import (
     PaymentPlan,
     PaymentPlanStatus,
 )
+from .budget_generator import BudgetGenerator
 from .edge_case_generator import EdgeCaseGenerator
 from .fund_generator import FundGenerator
 from .member_generator import MemberGenerator
@@ -26,4 +27,5 @@ __all__ = [
     "DelinquencyStatus",
     "PaymentPlan",
     "PaymentPlanStatus",
+    "BudgetGenerator",
 ]
