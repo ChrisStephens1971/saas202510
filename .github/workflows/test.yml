@@ -41,19 +41,19 @@ jobs:
 
     - name: Run test suite
       run: |
-        pytest tests/ -v --tb=short --maxfail=5 -p no:cov -n 0
+        pytest tests/ -v --tb=short --maxfail=5
 
     - name: Run integration tests
       run: |
-        pytest tests/integration/ -v --tb=short -p no:cov -n 0
+        pytest tests/integration/ -v --tb=short
 
     - name: Run property-based tests
       run: |
-        pytest tests/property/ -v --tb=short -p no:cov -n 0
+        pytest tests/property/ -v --tb=short
 
     - name: Generate coverage report
       run: |
-        pytest tests/ --cov=src/qa_testing --cov-report=term-missing --cov-report=xml -n 0
+        pytest tests/ --cov=src/qa_testing --cov-report=term-missing --cov-report=xml
       continue-on-error: true
 
     - name: Upload coverage to Codecov
@@ -91,9 +91,9 @@ jobs:
 
     - name: Validate data type compliance
       run: |
-        pytest tests/ -k "test_.*_use_decimal" -v -p no:cov -n 0
-        pytest tests/ -k "test_.*_dates_use_date" -v -p no:cov -n 0
-        pytest tests/ -k "test_.*_decimal_with_2_places" -v -p no:cov -n 0
+        pytest tests/ -k "test_.*_use_decimal" -v
+        pytest tests/ -k "test_.*_dates_use_date" -v
+        pytest tests/ -k "test_.*_decimal_with_2_places" -v
       continue-on-error: false
 
   compliance-tests:
@@ -117,5 +117,5 @@ jobs:
 
     - name: Run compliance verification tests
       run: |
-        pytest tests/compliance/ -v --tb=short -p no:cov -n 0
+        pytest tests/compliance/ -v --tb=short
       continue-on-error: false

@@ -43,11 +43,6 @@ addopts = [
     "-ra",                   # Show all test summary info
     "--strict-markers",      # Strict marker usage
     "--strict-config",       # Strict config
-    "--cov=src",            # Coverage for src directory
-    "--cov-report=term-missing", # Show missing lines in coverage
-    "--cov-report=html",    # Generate HTML coverage report
-    "--cov-branch",         # Branch coverage
-    "-n", "auto",           # Parallel execution (auto-detect CPU count)
 ]
 markers = [
     "slow: marks tests as slow (deselect with '-m \"not slow\"')",
