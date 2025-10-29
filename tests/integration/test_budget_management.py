@@ -423,7 +423,8 @@ class TestMultiYearBudgets:
         # may not equal the quantized total increase due to rounding
         expected_increase = (total_2024 * Decimal("0.10")).quantize(Decimal("0.01"))
         actual_increase = total_2025 - total_2024
-        assert abs(actual_increase - expected_increase) < Decimal("0.01")
+        # Allow up to 1 cent difference due to rounding when summing quantized amounts
+        assert abs(actual_increase - expected_increase) <= Decimal("0.01")
 
 
 class TestBudgetDataTypes:
