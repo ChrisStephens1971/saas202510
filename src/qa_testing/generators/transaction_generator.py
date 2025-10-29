@@ -118,50 +118,50 @@ class TransactionGenerator:
 
     @staticmethod
     def _generate_amount(transaction_type: TransactionType) -> Decimal:
-        """Generate realistic amount based on transaction type."""
+        """Generate realistic amount based on transaction type with exactly 2 decimal places."""
         if transaction_type in [TransactionType.DUES_PAYMENT, TransactionType.ASSESSMENT_PAYMENT]:
             # Monthly dues: $200-$600
-            return Decimal(str(fake.random_int(min=200, max=600, step=25)))
+            return Decimal(str(fake.random_int(min=200, max=600, step=25))).quantize(Decimal("0.01"))
 
         elif transaction_type == TransactionType.LATE_FEE:
             # Late fees: $25-$100
-            return Decimal(str(fake.random_int(min=25, max=100, step=5)))
+            return Decimal(str(fake.random_int(min=25, max=100, step=5))).quantize(Decimal("0.01"))
 
         elif transaction_type == TransactionType.TRANSFER_FEE:
             # Transfer fees: $100-$500
-            return Decimal(str(fake.random_int(min=100, max=500, step=50)))
+            return Decimal(str(fake.random_int(min=100, max=500, step=50))).quantize(Decimal("0.01"))
 
         elif transaction_type in [TransactionType.VENDOR_PAYMENT, TransactionType.MAINTENANCE]:
             # Vendor/maintenance: $500-$5000
-            return Decimal(str(fake.random_int(min=500, max=5000, step=100)))
+            return Decimal(str(fake.random_int(min=500, max=5000, step=100))).quantize(Decimal("0.01"))
 
         elif transaction_type == TransactionType.UTILITY:
             # Utilities: $200-$2000
-            return Decimal(str(fake.random_int(min=200, max=2000, step=50)))
+            return Decimal(str(fake.random_int(min=200, max=2000, step=50))).quantize(Decimal("0.01"))
 
         elif transaction_type == TransactionType.INSURANCE:
             # Insurance: $1000-$10000
-            return Decimal(str(fake.random_int(min=1000, max=10000, step=500)))
+            return Decimal(str(fake.random_int(min=1000, max=10000, step=500))).quantize(Decimal("0.01"))
 
         elif transaction_type == TransactionType.MANAGEMENT_FEE:
             # Management fees: $500-$3000
-            return Decimal(str(fake.random_int(min=500, max=3000, step=100)))
+            return Decimal(str(fake.random_int(min=500, max=3000, step=100))).quantize(Decimal("0.01"))
 
         elif transaction_type == TransactionType.REFUND:
             # Refunds: $50-$500
-            return Decimal(str(fake.random_int(min=50, max=500, step=25)))
+            return Decimal(str(fake.random_int(min=50, max=500, step=25))).quantize(Decimal("0.01"))
 
         elif transaction_type == TransactionType.ADJUSTMENT:
             # Adjustments: $10-$1000
-            return Decimal(str(fake.random_int(min=10, max=1000, step=10)))
+            return Decimal(str(fake.random_int(min=10, max=1000, step=10))).quantize(Decimal("0.01"))
 
         elif transaction_type == TransactionType.BANK_FEE:
             # Bank fees: $5-$50
-            return Decimal(str(fake.random_int(min=5, max=50, step=5)))
+            return Decimal(str(fake.random_int(min=5, max=50, step=5))).quantize(Decimal("0.01"))
 
         else:
             # Default: $100-$1000
-            return Decimal(str(fake.random_int(min=100, max=1000, step=50)))
+            return Decimal(str(fake.random_int(min=100, max=1000, step=50))).quantize(Decimal("0.01"))
 
     @staticmethod
     def _generate_description(transaction_type: TransactionType) -> str:
