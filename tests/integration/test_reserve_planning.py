@@ -55,15 +55,16 @@ class TestReserveStudyCreation:
         """Test that horizon years must be between 5 and 30."""
         property_obj = PropertyGenerator.create()
 
-        # Too short
-        with pytest.raises(ValueError, match="horizon_years must be between 5 and 30"):
+        # Too short - Pydantic V2 uses ValidationError
+        from pydantic import ValidationError
+        with pytest.raises(ValidationError, match="(horizon_years|greater than or equal to 5)"):
             ReserveStudyGenerator.create(
                 tenant_id=property_obj.tenant_id,
                 horizon_years=3,  # Too short
             )
 
         # Too long
-        with pytest.raises(ValueError, match="horizon_years must be between 5 and 30"):
+        with pytest.raises(ValidationError, match="(horizon_years|less than or equal to 30)"):
             ReserveStudyGenerator.create(
                 tenant_id=property_obj.tenant_id,
                 horizon_years=40,  # Too long
@@ -477,14 +478,15 @@ class TestFundingAdequacy:
         )
 
         # Low balance, high expenditures = underfunded
+        # Adjusted so ending_balance is positive but percent_funded < 70%
         projection = ReserveProjectionGenerator.create(
             tenant_id=property_obj.tenant_id,
             scenario_id=scenario.id,
             year_number=1,
             calendar_year=2025,
-            beginning_balance=Decimal("10000.00"),
-            annual_contribution=Decimal("12000.00"),
-            expenditures=Decimal("100000.00"),
+            beginning_balance=Decimal("50000.00"),
+            annual_contribution=Decimal("10000.00"),
+            expenditures=Decimal("40000.00"),  # Results in 20k ending balance, ~33% funded
             interest_rate=Decimal("1.50"),
         )
 

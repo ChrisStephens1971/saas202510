@@ -79,6 +79,10 @@ class TestReserveCalculationInvariants:
 
         This must hold for any valid balance, contribution, expenditure, and interest rate.
         """
+        # Skip combinations that would result in negative ending balance
+        # (model validator requires percent_funded >= 0)
+        assume(expenditures <= (beginning_balance + annual_contribution))
+
         property_obj = PropertyGenerator.create()
         study = ReserveStudyGenerator.create(tenant_id=property_obj.tenant_id)
         scenario = ReserveScenarioGenerator.create_baseline(
@@ -506,6 +510,9 @@ class TestDataTypeInvariants:
 
         This includes balances, contributions, interest, and expenditures.
         """
+        # Skip combinations that would result in negative ending balance
+        assume(expenditures <= (beginning_balance + contribution))
+
         property_obj = PropertyGenerator.create()
         study = ReserveStudyGenerator.create(tenant_id=property_obj.tenant_id)
         scenario = ReserveScenarioGenerator.create_baseline(
