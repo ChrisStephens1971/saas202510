@@ -14,6 +14,8 @@ dependencies = [
     "psycopg[binary]>=3.1.0", # PostgreSQL adapter
     "python-dotenv>=1.0.0",  # Environment variable management
     "freezegun>=1.4.0",      # Time travel for tests
+    "reportlab>=4.0.0",      # PDF report generation
+    "openpyxl>=3.1.0",       # Excel report generation
 ]
 
 [project.optional-dependencies]
