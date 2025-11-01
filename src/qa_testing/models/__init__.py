@@ -14,6 +14,7 @@ from .violation import *
 from .board_packet import *
 from .delinquency import *
 from .invoice import *
+from .phase4 import *
 
 __all__ = [
     # Base
@@ -90,4 +91,16 @@ __all__ = [
     "Delinquency",
     # Invoice
     "Invoice",
+    # Phase 4 Models
+    "AuditorExport",
+    "AuditorExportStatus",
+    "ResaleDisclosure",
+    "ResaleDisclosureStatus",
+    "DisclosureState",
+    "JournalEntry",
+    "Violation",
+    "WorkOrder",
+    "ARCRequest",
+    "ARCApproval",
+    "EmailDelivery",
 ]

@@ -47,6 +47,16 @@ from .board_packet_generator import (
 )
 from .delinquency_generator import DelinquencyGenerator
 from .invoice_generator import InvoiceGenerator
+from .phase4_generators import (
+    AuditorExportGenerator,
+    ResaleDisclosureGenerator,
+    EvidenceGenerator,
+    ViolationGenerator as Phase4ViolationGenerator,
+    WorkOrderGenerator,
+    ARCRequestGenerator,
+    LedgerGenerator,
+    FinancialSnapshotGenerator,
+)
 
 __all__ = [
     "MemberGenerator",
@@ -84,4 +94,12 @@ __all__ = [
     "PacketSectionGenerator",
     "DelinquencyGenerator",
     "InvoiceGenerator",
+    # Phase 4 Generators
+    "AuditorExportGenerator",
+    "ResaleDisclosureGenerator",
+    "EvidenceGenerator",
+    "WorkOrderGenerator",
+    "ARCRequestGenerator",
+    "LedgerGenerator",
+    "FinancialSnapshotGenerator",
 ]
