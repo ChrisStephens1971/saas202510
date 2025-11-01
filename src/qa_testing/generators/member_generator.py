@@ -175,6 +175,51 @@ class MemberGenerator:
         )
 
     @staticmethod
+    def create_with_balance(
+        *,
+        tenant_id: UUID,
+        balance: Decimal,
+        property_id: Optional[UUID] = None,
+        unit_id: Optional[UUID] = None,
+        **kwargs
+    ) -> Member:
+        """
+        Create a Member with a specific balance.
+
+        Args:
+            tenant_id: Tenant ID for multi-tenant isolation
+            balance: Specific balance for the member (can be negative for debt)
+            property_id: Associated property ID (generates one if not provided)
+            unit_id: Associated unit ID (generates one if not provided)
+            **kwargs: Additional arguments passed to create()
+
+        Returns:
+            Member instance with specified balance
+        """
+        # Create member with default settings
+        member = MemberGenerator.create(
+            tenant_id=tenant_id,
+            unit_id=unit_id,
+            property_id=property_id,
+            **kwargs
+        )
+
+        # Override the current_balance with the specified balance
+        member.current_balance = balance.quantize(Decimal("0.01"))
+
+        # If balance is negative (debt), set payment history accordingly
+        if balance < Decimal("0.00"):
+            member.payment_history = PaymentHistory.DELINQUENT
+            # Adjust total_owed to reflect the debt
+            member.total_owed = member.total_paid - balance
+        elif balance > Decimal("0.00"):
+            # Positive balance means they overpaid
+            member.payment_history = PaymentHistory.OVERPAYER
+            member.total_paid = member.total_owed + balance
+
+        return member
+
+    @staticmethod
     def create_batch(
         count: int,
         *,

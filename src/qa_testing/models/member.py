@@ -105,6 +105,11 @@ class Member(BaseTestModel):
         """Check if member is on the board."""
         return self.member_type == MemberType.BOARD_MEMBER
 
+    @property
+    def balance(self) -> Decimal:
+        """Alias for current_balance (for test compatibility)."""
+        return self.current_balance
+
     def __str__(self) -> str:
         """String representation."""
         return f"{self.full_name} ({self.member_type.value})"

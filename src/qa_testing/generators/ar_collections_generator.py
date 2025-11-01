@@ -192,7 +192,7 @@ class ARCollectionsGenerator:
         due_date = date.today() - timedelta(days=days_past_due)
         original_txn = TransactionGenerator.create(
             property_id=property_id,
-            transaction_type=TransactionType.MEMBER_DUES,
+            transaction_type=TransactionType.DUES_PAYMENT,
             amount=original_balance,
             transaction_date=due_date,
         )

@@ -346,6 +346,48 @@ class ViolationGenerator:
             cure_deadline=cure_deadline,
         )
 
+    @staticmethod
+    def create_with_photo(
+        *,
+        tenant_id: UUID,
+        member_id: UUID,
+        num_photos: int = 1,
+        **kwargs
+    ) -> Violation:
+        """
+        Create a violation with associated photos.
+
+        Args:
+            tenant_id: Tenant ID for multi-tenant isolation
+            member_id: Owner/member ID
+            num_photos: Number of photos to attach to the violation
+            **kwargs: Additional arguments passed to create()
+
+        Returns:
+            Violation instance with photos attached (accessible via violation.id)
+        """
+        # Create the violation
+        violation = ViolationGenerator.create(
+            tenant_id=tenant_id,
+            owner_id=member_id,
+            **kwargs
+        )
+
+        # Create photos for this violation (photos are stored separately but linked)
+        # We're just creating the violation here; tests can create photos using ViolationPhotoGenerator
+        # But we'll add a photos attribute to the violation instance to hold them
+        violation.photos = []
+
+        for _ in range(num_photos):
+            # Import here to avoid circular dependency
+            photo = ViolationPhotoGenerator.create(
+                tenant_id=tenant_id,
+                violation_id=violation.id,
+            )
+            violation.photos.append(photo)
+
+        return violation
+
 
 class ViolationPhotoGenerator:
     """

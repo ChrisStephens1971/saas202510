@@ -45,6 +45,8 @@ from .board_packet_generator import (
     BoardPacketGenerator,
     PacketSectionGenerator,
 )
+from .delinquency_generator import DelinquencyGenerator
+from .invoice_generator import InvoiceGenerator
 
 __all__ = [
     "MemberGenerator",
@@ -80,4 +82,6 @@ __all__ = [
     "BoardPacketTemplateGenerator",
     "BoardPacketGenerator",
     "PacketSectionGenerator",
+    "DelinquencyGenerator",
+    "InvoiceGenerator",
 ]
