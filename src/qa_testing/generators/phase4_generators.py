@@ -524,3 +524,52 @@ class FinancialSnapshotGenerator:
             )
 
         return snapshot
+
+
+class DocumentGenerator:
+    """Generator for documents and attachments"""
+
+    @staticmethod
+    def create_document(
+        name: str,
+        doc_type: str = "pdf",
+        size: Optional[int] = None,
+    ) -> Dict[str, Any]:
+        """Create a document object"""
+        if size is None:
+            size = random.randint(50000, 5000000)
+
+        extensions = {
+            "pdf": "pdf",
+            "excel": "xlsx",
+            "word": "docx",
+            "image": "jpg",
+        }
+
+        ext = extensions.get(doc_type, "pdf")
+        doc_id = uuid4().hex[:12]
+
+        return {
+            "id": doc_id,
+            "name": name,
+            "type": doc_type,
+            "extension": ext,
+            "url": f"https://s3.amazonaws.com/documents/{doc_id}.{ext}",
+            "size": size,
+            "created_at": datetime.now(),
+        }
+
+    @staticmethod
+    def create_governing_documents() -> List[Dict[str, Any]]:
+        """Create standard HOA governing documents"""
+        docs = [
+            ("CC&Rs", "pdf", 2500000),
+            ("Bylaws", "pdf", 1200000),
+            ("Rules and Regulations", "pdf", 800000),
+            ("Architectural Guidelines", "pdf", 600000),
+        ]
+
+        return [
+            DocumentGenerator.create_document(name, doc_type, size)
+            for name, doc_type, size in docs
+        ]

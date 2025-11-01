@@ -334,6 +334,19 @@ class ARCApproval(BaseTestModel):
     expiration_date: Optional[date] = None
 
 
+class ARCCompletion(BaseTestModel):
+    """Model for ARC completion tracking (Phase 3)"""
+
+    id: UUID = Field(default_factory=uuid4)
+    property_id: str
+    approval_id: UUID
+    completed_date: date
+    verified_by: str
+    photos_url: Optional[str] = None
+    final_inspection_passed: bool = False
+    notes: str = ""
+
+
 class Invoice(BaseTestModel):
     """Model for invoices"""
 

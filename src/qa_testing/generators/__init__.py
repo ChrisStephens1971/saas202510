@@ -102,4 +102,5 @@ __all__ = [
     "ARCRequestGenerator",
     "LedgerGenerator",
     "FinancialSnapshotGenerator",
+    "DocumentGenerator",
 ]

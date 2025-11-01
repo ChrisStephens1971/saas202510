@@ -102,5 +102,6 @@ __all__ = [
     "WorkOrder",
     "ARCRequest",
     "ARCApproval",
+    "ARCCompletion",
     "EmailDelivery",
 ]
